@@ -18,9 +18,20 @@
   )
 }
 
-#' Define Parameter Type
+
+#' Parameter Type
 #'
-#' Add a new parameter that can be used in step definitions.
+#' @description
+#' The following parameter types are available by default:
+#'
+#' | **Type**           | **Description**                                                                                                                                                                                               |
+#' | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+#' | `{int}`            | Matches integers, for example `71` or `-19`. Converts value with `as.integer`.                                                                                                                                      |
+#' | `{float}`          | Matches floats, for example `3.6`, `.8` or `-9.2`. Converts value with `as.double`.                                                                                                                                   |
+#' | `{word}`           | Matches words without whitespace, for example `banana` (but not `banana split`).                                                                                                                                  |
+#' | `{string}`         | Matches single-quoted or double-quoted strings, for example `"banana split"` or `'banana split'` (but not `banana split`). Only the text between the quotes will be extracted. The quotes themselves are discarded. |
+#'
+#' To use custom parameter types, call `define_parameter_type` before `cucumber::test` is called.
 #'
 #' @param name
 #'  The name of the parameter.
@@ -29,7 +40,7 @@
 #'   you need to use four backslashes.
 #' @param transformer
 #'  A function that will transform the parameter from a string to the desired type.
-#'  Must be a funcion that requires only a single argument.
+#'  Must be a function that requires only a single argument.
 #' @return An object of class \code{parameter}, invisibly. Function should be called for side effects.
 #'
 #' @examples
@@ -39,6 +50,14 @@
 #'   regexp = "[+-]?\\\\d*\\\\.?\\\\d+(e[+-]?\\\\d+)?",
 #'   transform = as.double
 #' )
+#'
+#' \dontrun{
+#' #' tests/testthat/test-cucumber.R
+#' cucumber::define_parameter_type("color", "red|blue|green", as.character)
+#' cucumber::test(".", "./steps")
+#' }
+#'
+#' @md
 #' @export
 define_parameter_type <- function(name, regexp, transformer) {
   parameters <- get_parameters()
@@ -63,6 +82,7 @@ set_parameters <- function(parameters) {
   options(parameters = parameters)
 }
 
+#' @importFrom stringr str_sub str_trim
 set_default_parameters <- function() {
   options(parameters = .parameters())
   define_parameter_type(
@@ -79,7 +99,15 @@ set_default_parameters <- function() {
 
   define_parameter_type(
     name = "string",
-    regexp = "[:print:]+",
+    regexp = "'[:print:]+?'|\"[:print:]+?\"",
+    transformer = function(x) {
+      str_sub(x, 2, nchar(x) - 1)
+    }
+  )
+
+  define_parameter_type(
+    name = "word",
+    regexp = "\\\\w+",
     transformer = as.character
   )
 }
