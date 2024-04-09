@@ -1,4 +1,4 @@
-f7eb487efc47337f67324581dfccaf6e *DESCRIPTION
+5744c550ce3570605b797711ab958da1 *DESCRIPTION
 4c30a4de5a0961e88aab8ea65a70720e *LICENSE
 107271f107bac66f2a4c4581a6dd86b4 *NAMESPACE
 c85fabd20647ddce540b8b522d81f43f *NEWS.md
@@ -89,7 +89,7 @@ b4c904cbef701dea14f9d6c15e93162f *man/figures/logo.png
 14136e73c877d3b1f0e6af97175ec672 *tests/testthat/_snaps/examples.md
 2b51e9fc13634743dc842edfe836835c *tests/testthat/setup-disable-crashpad.R
 b82a3de58fef66cffcfc5c4cf659bd90 *tests/testthat/test-detect.R
-465e6c4fd450fac9edbb60349ac516e1 *tests/testthat/test-examples.R
+5af1957a770dabd267c65b7f8c748846 *tests/testthat/test-examples.R
 bf3e63ee05d3768429164763b4ee37e8 *tests/testthat/test-expression.R
 d3f291d0aced8081c14e91e60081ad0f *tests/testthat/test-map_keywords.R
 6fe5bc74035803136a2db83e966c6a9c *tests/testthat/test-parameter.R
