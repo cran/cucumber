@@ -84,7 +84,18 @@
         show_praise = FALSE), stop_on_failure = FALSE)
     Output
       v | F W  S  OK | Context
-      v |          1 | Feature: Guess the word
+      v |          2 | Feature: Guess the word
+      == Results =====================================================================
+      [ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
+
+# test: should run before hook
+
+    Code
+      testthat::test_dir(tests_path, reporter = testthat::ProgressReporter$new(
+        show_praise = FALSE), stop_on_failure = FALSE)
+    Output
+      v | F W  S  OK | Context
+      v |          1 | Feature: Hooks
       == Results =====================================================================
       [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
 
