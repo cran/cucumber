@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
 
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 # tests/testthat/test-bookstore.R
 test_that("Bookstore: Adding a book to cart", {
   # Given
@@ -17,6 +18,7 @@ test_that("Bookstore: Adding a book to cart", {
   bookstore$add_to_cart()
   # Then
   bookstore$cart_includes("The Hobbit, J.R.R. Tolkien")
+})
 })
 
 
