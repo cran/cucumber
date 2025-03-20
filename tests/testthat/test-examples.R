@@ -36,6 +36,7 @@ describe("test", {
   })
 
   it("should run with shinytest2", {
+    skip_on_ci()
     # nolint start
     # Produces on r-devel:
     # Superclass process has cloneable=FALSE, but subclass r_process has cloneable=TRUE. A subclass cannot be cloneable when its superclass is not cloneable, so cloning will be disabled for r_process.
@@ -60,8 +61,15 @@ describe("test", {
     test_example("examples/comments")
   })
 
-  it("should run before hook", {
+  it("should run before and after hooks", {
+    testthat::skip_if(covr::in_covr())
     test_example("examples/hooks")
+  })
+
+  it("should run after hook, even after error in step", {
+    testthat::skip_if(covr::in_covr())
+    testthat::skip_if(R.version$status == "Under development (unstable)")
+    test_example("examples/hooks_after_error")
   })
 
   it("should run a Scenario with custom parameters", {
@@ -75,13 +83,20 @@ describe("test", {
 
   it("should work with covr", {
     testthat::skip_if(covr::in_covr())
-    withr::with_dir(system.file("examples/covr_support/tests/testthat", package = "cucumber"), {
-      testthat::expect_snapshot({
-        source_files <- list.files(c("../../R", "./steps"), full.names = TRUE, pattern = ".R$")
-        test_files <- list.files(".", full.names = TRUE, pattern = ".R$")
-        covr::file_coverage(source_files, test_files)
-      })
-    })
+    withr::with_dir(
+      system.file("examples/covr_support/tests/testthat", package = "cucumber"),
+      {
+        testthat::expect_snapshot({
+          source_files <- list.files(
+            c("../../R", "./steps"),
+            full.names = TRUE,
+            pattern = ".R$"
+          )
+          test_files <- list.files(".", full.names = TRUE, pattern = ".R$")
+          covr::file_coverage(source_files, test_files)
+        })
+      }
+    )
   })
 
   it("should work with custom steps loader", {
