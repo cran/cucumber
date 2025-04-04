@@ -71,7 +71,7 @@ Cucumber translates `.feature` files to `testthat::test_that` calls.
 
 When a `Scenario` is run, the `context` environment is reset so that the state doesn't leak to the next scenario.
 
-The previous feature file is basically translated to the following test code, so that we can leverate [testthat reporters](https://testthat.r-lib.org/reference/index.html#reporters) and not reinvent the wheel.
+The previous feature file is basically translated to the following test code, so that we can leverage [testthat reporters](https://testthat.r-lib.org/reference/index.html#reporters) and not reinvent the wheel.
 
 ```r
 test_that("Scenario: Sum should work for 2 numbers", {
@@ -98,9 +98,9 @@ A scenario is a test case.
 
 # How step definitions are loaded
 
-You don't have to load step implementations manually. Cucumber loads them automatically when `cucumber::test` is called.
+If you define your steps in [setup or helper](https://testthat.r-lib.org/articles/special-files.html) files you don't have to load step implementations manually. Cucumber will load them automatically when `cucumber::test` is called.
 
-If you don't want them to be loaded automatically from the default location, you can use `steps_loader` argument to provide your own step loader function. See [inst/examples/custom_step_loader](https://github.com/jakubsob/cucumber/blob/main/inst/examples/custom_steps_loader/tests/testthat/test-cucumber.R)
+If you don't want them to be loaded automatically from the default location, you can create your own command that calls `cucumber::test()` and loads the step definitions from the desired location.
 
 Steps from feature files are matched against step definitions defined with `given()`, `when()`, and `then()` functions using regular expressions.
 

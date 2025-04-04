@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 
 ## ----error = TRUE-------------------------------------------------------------
 try({
-# tests/testthat/test-bookstore.R
+# tests/acceptance/test-bookstore.R
 test_that("Bookstore: Adding a book to cart", {
   # Given
   bookstore <- Bookstore$new()
@@ -23,7 +23,7 @@ test_that("Bookstore: Adding a book to cart", {
 
 
 ## -----------------------------------------------------------------------------
-# tests/testthat/setup-bookstore.R
+# tests/acceptance/setup-bookstore.R
 Bookstore <- R6::R6Class(
   public = list(
     select = function(title) {
@@ -63,7 +63,7 @@ get_cart <- function() {
 
 
 ## -----------------------------------------------------------------------------
-# tests/testthat/setup-bookstore.R
+# tests/acceptance/setup-bookstore.R
 Bookstore <- R6::R6Class(
   private = list(
     selected_id = NULL
@@ -83,7 +83,7 @@ Bookstore <- R6::R6Class(
 
 
 ## -----------------------------------------------------------------------------
-# tests/testthat/test-bookstore.R
+# tests/acceptance/test-bookstore.R
 test_that("Bookstore: Adding a book to cart", {
   # Given
   bookstore <- Bookstore$new()
@@ -110,9 +110,8 @@ test_that("Bookstore: Adding multiple books to cart", {
 
 
 ## -----------------------------------------------------------------------------
-# tests/acceptance/steps/steps.R
+# tests/acceptance/setup-steps.R
 given("I am in the bookstore", function(context) {
-
 })
 
 when("I select {string}", function(title, context) {

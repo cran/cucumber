@@ -83,10 +83,10 @@ make_step <- function(prefix) {
 #' function should be `function(n, context)`. The `{int}` value will be passed to
 #' `n`, this parameter can have any name.
 #'
-#' If a table or a docstring is defined for a step, it will be passed as an argument after plceholder parameters
+#' If a table or a docstring is defined for a step, it will be passed as an argument after placeholder parameters
 #' and before `context`. The function should be a `function(n, table, context)`.
 #' See
-#' \href{https://github.com/jakubsob/cucumber/blob/main/inst/examples/table/tests/testthat/steps/steps.R}{an example}
+#' \href{https://github.com/jakubsob/cucumber/blob/main/inst/examples/table/tests/acceptance/setup-steps.R}{an example}
 #' on how to write implementation that uses tables or docstrings.
 #'
 #' @examples

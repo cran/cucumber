@@ -148,7 +148,7 @@ Feature: Sum
 <h1 id="translation-to-testthat-code">Translation to <code>testthat</code> code</h1>
 <p>Cucumber translates <code>.feature</code> files to <code>testthat::test_that</code> calls.</p>
 <p>When a <code>Scenario</code> is run, the <code>context</code> environment is reset so that the state doesn’t leak to the next scenario.</p>
-<p>The previous feature file is basically translated to the following test code, so that we can leverate <a href="https://testthat.r-lib.org/reference/index.html#reporters">testthat reporters</a> and not reinvent the wheel.</p>
+<p>The previous feature file is basically translated to the following test code, so that we can leverage <a href="https://testthat.r-lib.org/reference/index.html#reporters">testthat reporters</a> and not reinvent the wheel.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;Scenario: Sum should work for 2 numbers&quot;</span>, {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  context <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  context<span class="sc">$</span>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(context<span class="sc">$</span>numbers, <span class="dv">1</span>)</span>
@@ -168,8 +168,8 @@ Feature: Sum
 <p>Test successes or failures are reported at the level of Scenarios.</p>
 <p>A scenario is a test case.</p>
 <h1 id="how-step-definitions-are-loaded">How step definitions are loaded</h1>
-<p>You don’t have to load step implementations manually. Cucumber loads them automatically when <code>cucumber::test</code> is called.</p>
-<p>If you don’t want them to be loaded automatically from the default location, you can use <code>steps_loader</code> argument to provide your own step loader function. See <a href="https://github.com/jakubsob/cucumber/blob/main/inst/examples/custom_steps_loader/tests/testthat/test-cucumber.R">inst/examples/custom_step_loader</a></p>
+<p>If you define your steps in <a href="https://testthat.r-lib.org/articles/special-files.html">setup or helper</a> files you don’t have to load step implementations manually. Cucumber will load them automatically when <code>cucumber::test</code> is called.</p>
+<p>If you don’t want them to be loaded automatically from the default location, you can create your own command that calls <code>cucumber::test()</code> and loads the step definitions from the desired location.</p>
 <p>Steps from feature files are matched against step definitions defined with <code>given()</code>, <code>when()</code>, and <code>then()</code> functions using regular expressions.</p>
 <p>When you define a step by calling any of the step functions, you register that step, making it available for the tests.</p>
 

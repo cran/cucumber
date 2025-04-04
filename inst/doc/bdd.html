@@ -153,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <p>We need to represent the business language with code – a set of actions that user of the system can take. We can do it with functions. Those functions will create the interface of the system. Their names can follow closely the natural language description of the action. They will abstract and hide the implementation details of the system. They will allow reuse of the test code.</p>
 <p>The specification of the bookstore could look like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/testthat/test-bookstore.R</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/test-bookstore.R</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;Bookstore: Adding a book to cart&quot;</span>, {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Given</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  bookstore <span class="ot">&lt;-</span> Bookstore<span class="sc">$</span><span class="fu">new</span>()</span>
@@ -171,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <p>This test fails as the code doesn’t exist yet. We can pause in this step and try out a few versions of the specifications and go with one that expresses the business goal the best.</p>
 <p>Once we have an outline of actions, we can implement them. We can use R6 objects to bind the functions together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/testthat/setup-bookstore.R</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/setup-bookstore.R</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Bookstore <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">select =</span> <span class="cf">function</span>(title) {</span>
@@ -218,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 </div>
 <p>Having this implementation, we can plug it into the test code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/testthat/setup-bookstore.R</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/setup-bookstore.R</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Bookstore <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">private =</span> <span class="fu">list</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">selected_id =</span> <span class="cn">NULL</span></span>
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 </div>
 <p>Now, the tests pass.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/testthat/test-bookstore.R</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/test-bookstore.R</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;Bookstore: Adding a book to cart&quot;</span>, {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Given</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  bookstore <span class="ot">&lt;-</span> Bookstore<span class="sc">$</span><span class="fu">new</span>()</span>
@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  bookstore<span class="sc">$</span><span class="fu">cart_includes</span>(<span class="st">&quot;The Hobbit, J.R.R. Tolkien&quot;</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 😸</span></span></code></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 😀</span></span></code></pre></div>
 </div>
 <p>With this implementation, we can easily extend tests with checking if we can add multiple books to the cart.</p>
 <div class="cell">
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  bookstore<span class="sc">$</span><span class="fu">cart_includes</span>(<span class="fu">c</span>(<span class="st">&quot;The Hobbit, J.R.R. Tolkien&quot;</span>, <span class="st">&quot;The Lord of the Rings, J.R.R. Tolkien&quot;</span>))</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 🥳</span></span></code></pre></div>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 🎉</span></span></code></pre></div>
 </div>
 <p>As the system grows, it will be extended with more examples and more actions. Actions already implemented will be reused in different scenarios.</p>
 <p>The implementation of the system will evolve, so will specifications, but this approach will ensure that test code is easy to maintain and focused on the business goal.</p>
@@ -280,26 +280,25 @@ Feature: Bookstore
     Then I should see &quot;The Hobbit, J.R.R. Tolkien&quot; in the cart</code></pre>
 <p>We implement actions with <code>given</code>, <code>when</code>, and <code>then</code> functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/steps/steps.R</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/acceptance/setup-steps.R</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">given</span>(<span class="st">&quot;I am in the bookstore&quot;</span>, <span class="cf">function</span>(context) {</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">when</span>(<span class="st">&quot;I select {string}&quot;</span>, <span class="cf">function</span>(title, context) {</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  context<span class="sc">$</span>selected_id <span class="ot">&lt;-</span> <span class="fu">select_book</span>(title)<span class="sc">$</span>id</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">when</span>(<span class="st">&quot;I add selected book to the cart&quot;</span>, <span class="cf">function</span>(context) {</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_to_cart</span>(context<span class="sc">$</span>selected_id)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">then</span>(<span class="st">&quot;I should see {string} in the cart&quot;</span>, <span class="cf">function</span>(title, context) {</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_in</span>(title, purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">get_cart</span>(), <span class="st">&quot;title&quot;</span>))</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">when</span>(<span class="st">&quot;I select {string}&quot;</span>, <span class="cf">function</span>(title, context) {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  context<span class="sc">$</span>selected_id <span class="ot">&lt;-</span> <span class="fu">select_book</span>(title)<span class="sc">$</span>id</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">when</span>(<span class="st">&quot;I add selected book to the cart&quot;</span>, <span class="cf">function</span>(context) {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_to_cart</span>(context<span class="sc">$</span>selected_id)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">then</span>(<span class="st">&quot;I should see {string} in the cart&quot;</span>, <span class="cf">function</span>(title, context) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_in</span>(title, purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">get_cart</span>(), <span class="st">&quot;title&quot;</span>))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 </div>
 <p>This test does exactly the same as the test with base R.</p>
 <p>We can run those tests with:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="st">&quot;tests/acceptance/steps&quot;</span>)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed</span></span></code></pre></div>
 <p>What <code>cucumber::test</code> function does is it reads the feature files, finds corresponding actions implementations and runs them in order. To learn more how it works, refer to <a href="https://jakubsob.github.io/cucumber/articles/how-it-works.html">How it works</a> vignette.</p>
 <p>Similar to what we did with base R, we can extend the feature file with a scenario that checks if we can add multiple books to the cart:</p>
@@ -319,8 +318,8 @@ Feature: Bookstore
     When I add selected book to the cart
     Then I should see &quot;The Hobbit, J.R.R. Tolkien&quot; in the cart
     Then I should see &quot;The Lord of the Rings, J.R.R. Tolkien&quot; in the cart</code></pre>
-<p>Reruning the tests will result in two scenarios passing.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="st">&quot;tests/acceptance/steps&quot;</span>)</span>
+<p>Re-running the tests will result in two scenarios passing.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed</span></span></code></pre></div>
 <h1 id="why-should-you-choose-cucumber">Why should you choose {cucumber}?</h1>
@@ -332,7 +331,7 @@ Feature: Bookstore
 </ul>
 <h1 id="learning-bdd">Learning BDD</h1>
 <ul>
-<li>ATDD by Example: A Practical Guide to Acceptance Test-Driven Development: A Practical Guide to Acceptance TestDriven Development.</li>
+<li>ATDD by Example: A Practical Guide to Acceptance Test-Driven Development: A Practical Guide to Acceptance Test-Driven Development.</li>
 <li><a href="https://www.youtube.com/watch?v=gXh0iUt4TXA&amp;list=PLwLLcwQlnXByKR1Fo7UnE6gQAbx-JfYJZ">Continuous Delivery Youtube Channel</a></li>
 <li><a href="https://cucumber.io/docs/guides/">Cucumber</a></li>
 </ul>
