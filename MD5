@@ -1,7 +1,7 @@
-b6ddb3790002f2451604bbf2d44040d5 *DESCRIPTION
+30964e441df498b797eec557d42bbcfb *DESCRIPTION
 4c30a4de5a0961e88aab8ea65a70720e *LICENSE
 3e8e6cd451cb7db736766f002f55ed04 *NAMESPACE
-39b21fad866c7da8523abac5cb38caf9 *NEWS.md
+0565ceaf241185b3da90a3482cf5e98a *NEWS.md
 8154477ee3a748456b06d6295232af97 *R/detect.R
 22f5f366156d6496f868f5ee3fe22f4b *R/doc-opts.R
 ffc2bad6ea4e26203c7d1c5b305ebddd *R/expression.R
@@ -18,9 +18,9 @@ baf85e3c4bff5b279a098389704d83df *R/tokenize.R
 e6305d21fca19658264a23aa797e8524 *R/validate.R
 a2163a2481a01eef72cb599219d1cb27 *R/zzz.R
 11cfa64c1063e982809013b0d3bcfab4 *README.md
-1ff916ee0594cbfd66f532fdaa1367bb *build/vignette.rds
-ef8ad3d28dbfc63261ff5cf99f67aba5 *inst/doc/bdd.R
-702e3eec2900fc40df61199062ce93a4 *inst/doc/bdd.html
+3ccc359b3cda0ffae1b95c5697bc1ef5 *build/vignette.rds
+62982d4e6794a96786a210c7c0b0e64b *inst/doc/bdd.R
+16fc55d146fd6c20eacc681a06f8b07b *inst/doc/bdd.html
 3fc2892008a297dffaaa568d3a84102d *inst/doc/bdd.qmd
 c40177e9859672a9b78f548cd9e783be *inst/doc/how-it-works.html
 ca33234d8c3b6e74a9e2bd36f95135d9 *inst/doc/how-it-works.qmd
@@ -100,7 +100,7 @@ e2c4d3e3b6ccdcb51f7d890ad4239b06 *man/validate_feature.Rd
 6243c12a28e5081bc2a5beb311ec7d21 *tests/testthat/_snaps/validate.md
 2b51e9fc13634743dc842edfe836835c *tests/testthat/setup-disable-crashpad.R
 b82a3de58fef66cffcfc5c4cf659bd90 *tests/testthat/test-detect.R
-58b8358d332f89417d917534d1c9dc06 *tests/testthat/test-examples.R
+1afe490d3ecb92a6c2eb8392a76469c1 *tests/testthat/test-examples.R
 bf3e63ee05d3768429164763b4ee37e8 *tests/testthat/test-expression.R
 0031bbc2ad156078b73234bd40a8b1ad *tests/testthat/test-hooks.R
 761e28c60ceafae7e8198cff3a8befda *tests/testthat/test-normalize_feature.R

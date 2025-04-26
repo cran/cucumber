@@ -163,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  bookstore<span class="sc">$</span><span class="fu">cart_includes</span>(<span class="st">&quot;The Hobbit, J.R.R. Tolkien&quot;</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Error: Bookstore: Adding a book to cart ─────────────────────────────────────</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Error: Bookstore: Adding a book to cart -------------------------------------</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in `eval(code, test_env)`: object &#39;Bookstore&#39; not found</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error:</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! Test failed</span></span></code></pre></div>
@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  bookstore<span class="sc">$</span><span class="fu">cart_includes</span>(<span class="st">&quot;The Hobbit, J.R.R. Tolkien&quot;</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 😀</span></span></code></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed</span></span></code></pre></div>
 </div>
 <p>With this implementation, we can easily extend tests with checking if we can add multiple books to the cart.</p>
 <div class="cell">
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  bookstore<span class="sc">$</span><span class="fu">cart_includes</span>(<span class="fu">c</span>(<span class="st">&quot;The Hobbit, J.R.R. Tolkien&quot;</span>, <span class="st">&quot;The Lord of the Rings, J.R.R. Tolkien&quot;</span>))</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed 🎉</span></span></code></pre></div>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test passed</span></span></code></pre></div>
 </div>
 <p>As the system grows, it will be extended with more examples and more actions. Actions already implemented will be reused in different scenarios.</p>
 <p>The implementation of the system will evolve, so will specifications, but this approach will ensure that test code is easy to maintain and focused on the business goal.</p>
