@@ -1,7 +1,7 @@
 Package: cucumber
 Type: Package
 Title: Behavior-Driven Development for R
-Version: 2.0.1
+Version: 2.1.0
 Authors@R: person("Jakub", "Sobolewski", email = "jakupsob@gmail.com", role = c("aut", "cre"))
 Description: Write executable specifications in a natural language that describes how your code should behave.
     Write specifications in feature files using 'Gherkin' language and execute them using functions implemented in R.
@@ -15,14 +15,14 @@ Depends: R (>= 4.1.0)
 Imports: checkmate, cli, dplyr, fs, glue, purrr, rlang, stringr,
         testthat (>= 3.0.0), tibble, withr
 Suggests: mockery, box, shinytest2, chromote, covr, knitr, rmarkdown,
-        quarto, R6, pkgdown
+        quarto, R6, pkgdown, pkgload
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 VignetteBuilder: quarto
 Config/Needs/website: rmarkdown
-NeedsCompilation: yes
-Packaged: 2025-04-24 20:50:43 UTC; jakub
+NeedsCompilation: no
+Packaged: 2025-05-20 15:21:12 UTC; jakub
 Author: Jakub Sobolewski [aut, cre]
 Maintainer: Jakub Sobolewski <jakupsob@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-04-26 10:10:01 UTC
+Date/Publication: 2025-05-20 15:50:06 UTC

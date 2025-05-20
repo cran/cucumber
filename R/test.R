@@ -1,15 +1,49 @@
-#' @importFrom fs dir_ls
+#' Run Cucumber tests in a `testthat` context
+#'
+#' @description
+#' It's purpose is to be able to run Cucumber tests alongside `testthat` tests.
+#'
+#' To do that, place a call to `run()` in one of the `test-*.R` files in your `tests/testthat` directory.
+#'
+#' @examples \dontrun{
+#' #' tests/testthat/test-cucumber.R
+#' cucumber::run()
+#' }
+#'
+#' @param path Path to the directory containing the `.feature` files.
+#'   If `run()` is placed in a `tests/testthat/test-*.R` file and you call `testthat::test_dir` or similar,
+#'   it runs in the `tests/testthat` directory. The default value `"."` finds all feature
+#'   files in the `tests/testthat` directory.
+#'
+#' @param filter If not NULL, only features with file names matching this regular expression
+#'   will be executed. Matching is performed on the file name after it's stripped of ".feature".
+#' @param ... Additional arguments passed to `grepl()`.
+#' @return NULL, invisibly.
+#'   To get result and a report, use `cucumber::test()`, or inspect the result of `testthat` function call.
+#'
 #' @importFrom purrr map walk
-run_features <- function(
-  features,
-  steps = get_steps(),
-  parameters = get_parameters(),
-  hooks = get_hooks()
+#' @export
+#' @md
+run <- function(
+  path = ".",
+  filter = NULL,
+  ...
 ) {
+  withr::defer(cleanup(), testthat::teardown_env())
+  features <- path |>
+    find_features() |>
+    filter_features(filter, ...)
+
+  if (length(features) == 0) {
+    abort("No feature files found")
+  }
+
   features |>
     map(readLines) |>
     map(validate_feature) |>
-    walk(run, steps = steps, parameters = parameters, hooks = hooks)
+    walk(execute)
+
+  invisible(NULL)
 }
 
 #' @importFrom fs dir_ls
@@ -38,26 +72,34 @@ cleanup <- function() {
 }
 
 #' @importFrom withr defer
-test_cucumber_code <- function(features) {
-  c(
-    'withr::defer(cucumber:::cleanup(), testthat::teardown_env())',
-    sprintf(
-      'cucumber:::run_features(c("%s"))',
-      paste(fs::path_file(features), collapse = '", "')
-    )
+test_cucumber_code <- function(path, filter, ...) {
+  sprintf(
+    'cucumber::run(%s, %s)',
+    shQuote(path),
+    if (is.null(filter)) {
+      "NULL"
+    } else {
+      shQuote(filter)
+    }
   )
 }
 
 #' Run Cucumber tests
 #'
-#' It runs tests from specifications in `.feature` files found in the `path`.
+#' @description
+#' It runs  tests from specifications in `.feature` files found in the `path`.
+#'
+#' To run Cucumber tests alongside `testthat` tests, see `cucumber::run()`.
 #'
 #' @section Good Practices:
 #'
 #' - Use a separate directory for your acceptance tests, e.g. `tests/acceptance`.
 #'
 #'   It's not prohibited to use `tests/testthat` directory, but it's not recommended as those tests
-#'   serve a different purpose and are usually run separately.
+#'   serve a different purpose and are better run separately, especially if acceptance tests take
+#'   longer to run than unit tests.
+#'
+#'   If you want to run Cucumber tests alongside `testthat` tests, you can use `cucumber::run()` in one of the `test-*.R` files in your `tests/testthat` directory.
 #'
 #' - Use [`setup-*.R`](https://testthat.r-lib.org/articles/special-files.html#setup-files)
 #'   files for calling [step()], [define_parameter_type()] and [hook()] to leverage testthat loading mechanism.
@@ -98,19 +140,13 @@ test <- function(
   stop_on_warning = FALSE,
   ...
 ) {
-  features <- path |>
-    find_features() |>
-    filter_features(filter, ...)
   file <- fs::path(path, "test-__cucumber__.R")
-  if (length(features) == 0) {
-    abort("No feature files found")
-  }
   with_file(file, {
     writeLines(
-      test_cucumber_code(features),
+      test_cucumber_code(".", filter = filter, ...),
       con = file
     )
-    test_dir(
+    result <- test_dir(
       path = path,
       filter = "^__cucumber__$",
       reporter = reporter,
@@ -120,4 +156,5 @@ test <- function(
       stop_on_warning = stop_on_warning
     )
   })
+  invisible(result)
 }

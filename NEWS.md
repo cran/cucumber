@@ -1,3 +1,10 @@
+# cucumber 2.1.0
+
+- ✨ Added `cucumber::run()` function to allow running Cucumber tests alongside `testthat` tests.
+- 🐛 Don't normalize feature files text within docstrings or tables.
+- 🐛 Don't include docstrings and tables when validating feature files.
+- 🧪 Added cucumber tests in `tests/acceptance`.
+
 # cucumber 2.0.1
 
 - 🐛 Fix CRAN Debian checks.

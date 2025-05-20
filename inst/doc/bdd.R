@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
 
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 # tests/acceptance/test-bookstore.R
 test_that("Bookstore: Adding a book to cart", {
   # Given
@@ -17,6 +18,7 @@ test_that("Bookstore: Adding a book to cart", {
   bookstore$add_to_cart()
   # Then
   bookstore$cart_includes("The Hobbit, J.R.R. Tolkien")
+})
 })
 
 
@@ -123,41 +125,4 @@ when("I add selected book to the cart", function(context) {
 then("I should see {string} in the cart", function(title, context) {
   expect_in(title, purrr::map_chr(get_cart(), "title"))
 })
-
-
-## ----include = FALSE----------------------------------------------------------
-cucumber:::run(
-  c(
-    'Feature: Bookstore',
-    '  Scenario: Adding a book to cart',
-    '    Given I am in the bookstore',
-    '    When I select "The Hobbit, J.R.R. Tolkien"',
-    '    When I add selected book to the cart',
-    '    Then I should see "The Hobbit, J.R.R. Tolkien" in the cart'
-  ),
-  steps = cucumber:::get_steps()
-)
-
-
-## ----include = FALSE----------------------------------------------------------
-cucumber:::run(
-  c(
-    'Feature: Bookstore',
-    '  Scenario: Adding a book to cart',
-    '    Given I am in the bookstore',
-    '    When I select "The Hobbit, J.R.R. Tolkien"',
-    '    When I add selected book to the cart',
-    '    Then I should see "The Hobbit, J.R.R. Tolkien" in the cart',
-    '',
-    '  Scenario: Adding multiple books to cart',
-    '    Given I am in the bookstore',
-    '    When I select "The Hobbit, J.R.R. Tolkien"',
-    '    When I add selected book to the cart',
-    '    When I select "The Lord of the Rings, J.R.R. Tolkien"',
-    '    When I add selected book to the cart',
-    '    Then I should see "The Hobbit, J.R.R. Tolkien" in the cart',
-    '    Then I should see "The Lord of the Rings, J.R.R. Tolkien" in the cart'
-  ),
-  steps = cucumber:::get_steps()
-)
 
