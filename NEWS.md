@@ -1,3 +1,7 @@
+# cucumber 2.1.1
+
+- 🐛 Fix normalisation of feature files. [#14](https://github.com/jakubsob/cucumber/pull/14)
+
 # cucumber 2.1.0
 
 - ✨ Added `cucumber::run()` function to allow running Cucumber tests alongside `testthat` tests.
@@ -11,7 +15,7 @@
 
 # cucumber 2.0.0
 
-See the [migration guide](https://jakubsob.github.io/cucumber/articles/migration-to-2-0-0.html).
+See the [migration guide](https://jakubsobolewski.com/cucumber/articles/migration-to-2-0-0.html).
 
 - ✨ You can now run specifications directly with `cucumber::test()` function.
 
