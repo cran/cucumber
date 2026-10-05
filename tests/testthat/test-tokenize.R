@@ -20,49 +20,47 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Guess the word",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Scenario",
               value = "Maker starts a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Maker starts a game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Maker waits for a Breaker to join",
-                  children = NULL,
                   data = NULL
                 )
               ),
               data = NULL
             ),
-            list(
+            new_token(
               type = "Scenario",
               value = "Breaker joins a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "the Maker has started a game with the word 'silky'",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Breaker joins the Maker's game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Breaker must guess a word with 5 characters",
-                  children = NULL,
                   data = NULL
                 )
               ),
@@ -104,24 +102,24 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Guess the word",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Scenario",
               value = "Maker starts a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Maker starts a game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Maker waits for a Breaker to join",
-                  children = NULL,
                   data = NULL
                 )
               ),
@@ -163,86 +161,80 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Multiple site support",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Background",
               value = "",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "a global administrator named \"Greg\"",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "a blog named \"Greg's anti-tax rants\"",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "a customer named \"Dr. Bill\"",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "a blog named \"Expensive Therapy\" owned by \"Dr. Bill\"",
-                  children = NULL,
                   data = NULL
                 )
               ),
               data = NULL
             ),
-            list(
+            new_token(
               type = "Scenario",
               value = "Dr. Bill posts to his own blog",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "I am logged in as Dr. Bill",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "I try to post to \"Expensive Therapy\"",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "I should see \"Your article was published.\"",
-                  children = NULL,
                   data = NULL
                 )
               ),
               data = NULL
             ),
-            list(
+            new_token(
               type = "Scenario",
               value = "Dr. Bill tries to post to somebody else's blog, and fails",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "I am logged in as Dr. Bill",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "I try to post to \"Greg's anti-tax rants\"",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "I should see \"Hey! That's not your blog!\"",
-                  children = NULL,
                   data = NULL
                 )
               ),
@@ -275,33 +267,35 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Scenario Outline",
           value = "eating",
+          tags = character(0),
           children = list(
-            list(
-              type = "Step",
+            new_token(
+              type = "Given",
               value = "there are <start> cucumbers",
-              children = NULL,
               data = NULL
             ),
-            list(
-              type = "Step",
+            new_token(
+              type = "When",
               value = "I eat <eat> cucumbers",
-              children = NULL,
               data = NULL
             ),
-            list(
-              type = "Step",
+            new_token(
+              type = "Then",
               value = "I should have <left> cucumbers",
-              children = NULL,
               data = NULL
             ),
-            list(
+            new_token(
               type = "Scenarios",
               value = "",
-              children = NULL,
-              data = c("| start | eat | left |", "|    12 |   5 |    7 |", "|    20 |   5 |   15 |")
+              tags = character(0),
+              data = c(
+                "| start | eat | left |",
+                "|    12 |   5 |    7 |",
+                "|    20 |   5 |   15 |"
+              )
             )
           ),
           data = NULL
@@ -330,14 +324,14 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Scenario",
           value = "blog",
+          tags = character(0),
           children = list(
-            list(
-              type = "Step",
+            new_token(
+              type = "Given",
               value = "a blog post named \"Random\" with Markdown body",
-              children = NULL,
               data = c(
                 "\"\"\"",
                 "Some Title, Eh?",
@@ -374,14 +368,14 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Scenario",
           value = "blog",
+          tags = character(0),
           children = list(
-            list(
-              type = "Step",
+            new_token(
+              type = "Given",
               value = "a blog post named \"Random\" with Markdown body",
-              children = NULL,
               data = c(
                 "'''",
                 "Some Title, Eh?",
@@ -418,14 +412,14 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Scenario",
           value = "blog",
+          tags = character(0),
           children = list(
-            list(
-              type = "Step",
+            new_token(
+              type = "Given",
               value = "a blog post named \"Random\" with Markdown body",
-              children = NULL,
               data = c(
                 "```",
                 "Some Title, Eh?",
@@ -462,14 +456,14 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Scenario",
           value = "blog",
+          tags = character(0),
           children = list(
-            list(
-              type = "Step",
+            new_token(
+              type = "Given",
               value = "a blog post named \"Random\" with Markdown body",
-              children = NULL,
               data = c(
                 "```",
                 "Some Title, Eh?",
@@ -483,6 +477,52 @@ describe("tokenize", {
           data = NULL
         )
       )
+    )
+  })
+
+  it("should dedent docstring content when delimiter is indented past the step", {
+    # Arrange
+    lines <- c(
+      "Feature: Docstrings",
+      "  Scenario: Delimiter indented past the step",
+      "    Given the following docstring:",
+      "      \"\"\"",
+      "      foo:",
+      "      - bar: bar_value",
+      "        baz: baz_value",
+      "      \"\"\""
+    )
+
+    # Act
+    data <- tokenize(lines)[[1]]$children[[1]]$children[[1]]$data
+
+    # Assert
+    expect_equal(
+      parse_docstring(data),
+      c("foo:", "- bar: bar_value", "  baz: baz_value")
+    )
+  })
+
+  it("should dedent docstring content when delimiter is aligned with the step", {
+    # Arrange
+    lines <- c(
+      "Feature: Docstrings",
+      "  Scenario: Delimiter aligned with the step",
+      "    Given the following docstring:",
+      "    \"\"\"",
+      "    foo:",
+      "    - bar: bar_value",
+      "      baz: baz_value",
+      "    \"\"\""
+    )
+
+    # Act
+    data <- tokenize(lines)[[1]]$children[[1]]$children[[1]]$data
+
+    # Assert
+    expect_equal(
+      parse_docstring(data),
+      c("foo:", "- bar: bar_value", "  baz: baz_value")
     )
   })
 
@@ -501,11 +541,13 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
-          type = "Step",
+        new_token(
+          type = "Given",
           value = "the following users exist:",
-          children = NULL,
-          data = c("| name  | email            |", "| Jane  | janedoe@jane.com |")
+          data = c(
+            "| name  | email            |",
+            "| Jane  | janedoe@jane.com |"
+          )
         )
       )
     )
@@ -526,10 +568,9 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
-          type = "Step",
+        new_token(
+          type = "Given",
           value = "the following users exist:",
-          children = NULL,
           data = c(
             "       | name  | email            |",
             "       | Jane  | janedoe@jane.com |"
@@ -565,24 +606,24 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Guess the word",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Scenario",
               value = "Maker starts a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Maker starts a game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Maker waits for a Breaker to join",
-                  children = NULL,
                   data = c("| x | y |", "| 1 | 2 |")
                 )
               ),
@@ -614,24 +655,24 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Guess the word",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Scenario",
               value = "Maker starts a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Maker starts a game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Maker waits for a Breaker to join",
-                  children = NULL,
                   data = NULL
                 )
               ),
@@ -684,69 +725,71 @@ describe("tokenize", {
     expect_equal(
       result,
       list(
-        list(
+        new_token(
           type = "Feature",
           value = "Guess the word",
+          tags = character(0),
           children = list(
-            list(
+            new_token(
               type = "Background",
               value = "",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "a global administrator named \"Greg\"",
-                  children = NULL,
                   data = NULL
                 )
               ),
               data = "This is a freeform text after Background"
             ),
-            list(
+            new_token(
               type = "Scenario",
               value = "Maker starts a game",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "the Maker starts a game",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "the Maker waits for a Breaker to join",
-                  children = NULL,
                   data = NULL
                 )
               ),
               data = "This is a freeform text after Scenario"
             ),
-            list(
+            new_token(
               type = "Scenario Outline",
               value = "eating",
+              tags = character(0),
               children = list(
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Given",
                   value = "there are <start> cucumbers",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "When",
                   value = "I eat <eat> cucumbers",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
-                  type = "Step",
+                new_token(
+                  type = "Then",
                   value = "I should have <left> cucumbers",
-                  children = NULL,
                   data = NULL
                 ),
-                list(
+                new_token(
                   type = "Scenarios",
                   value = "",
-                  children = NULL,
-                  data = c("| start | eat | left |", "|    12 |   5 |    7 |", "|    20 |   5 |   15 |")
+                  tags = character(0),
+                  data = c(
+                    "| start | eat | left |",
+                    "|    12 |   5 |    7 |",
+                    "|    20 |   5 |   15 |"
+                  )
                 )
               ),
               data = "This is a freeform text after Scenario Outline"
@@ -770,5 +813,89 @@ describe("tokenize", {
 
     # Act & Assert
     expect_error(tokenize(lines))
+  })
+
+  it("should attach a single tag to a Scenario", {
+    # Arrange
+    lines <- c(
+      "Feature: Guess the word",
+      "  @smoke",
+      "  Scenario: Maker starts a game",
+      "    When the Maker starts a game"
+    )
+
+    # Act
+    result <- tokenize(lines)
+
+    # Assert
+    expect_equal(result[[1]]$children[[1]]$tags, c("smoke"))
+  })
+
+  it("should attach multiple tags from one line to a Scenario", {
+    # Arrange
+    lines <- c(
+      "Feature: Guess the word",
+      "  @smoke @fast",
+      "  Scenario: Maker starts a game",
+      "    When the Maker starts a game"
+    )
+
+    # Act
+    result <- tokenize(lines)
+
+    # Assert
+    expect_equal(result[[1]]$children[[1]]$tags, c("smoke", "fast"))
+  })
+
+  it("should attach tags from multiple lines to a Scenario", {
+    # Arrange
+    lines <- c(
+      "Feature: Guess the word",
+      "  @smoke",
+      "  @fast",
+      "  Scenario: Maker starts a game",
+      "    When the Maker starts a game"
+    )
+
+    # Act
+    result <- tokenize(lines)
+
+    # Assert
+    expect_equal(result[[1]]$children[[1]]$tags, c("smoke", "fast"))
+  })
+
+  it("should attach tags to Feature", {
+    # Arrange
+    lines <- c(
+      "@suite",
+      "Feature: Guess the word",
+      "  Scenario: Maker starts a game",
+      "    When the Maker starts a game"
+    )
+
+    # Act
+    result <- tokenize(lines)
+
+    # Assert
+    expect_equal(result[[1]]$tags, c("suite"))
+  })
+
+  it("should not include tag lines in freeform data", {
+    # Arrange
+    lines <- c(
+      "Feature: Guess the word",
+      "",
+      "  This is a description",
+      "",
+      "  @smoke",
+      "  Scenario: Maker starts a game",
+      "    When the Maker starts a game"
+    )
+
+    # Act
+    result <- tokenize(lines)
+
+    # Assert
+    expect_equal(result[[1]]$data, "This is a description")
   })
 })

@@ -1,3 +1,12 @@
+# cucumber 2.2.0
+
+- ✨ Added support for tags and tag expressions. Scenarios can now be tagged with `@tag` in feature files and filtered by passing `tags` to `cucumber::test()` or `cucumber::run()`. Feature-level tags are inherited by all scenarios in the feature.
+- ✨ Added `pending()` function to mark steps as pending. A pending step will cause the scenario to be reported as skipped rather than failed. This is useful when writing the feature files before implementing the steps.
+- ✨ Added step-level reporters. `CucumberReporter` is a base class (extending `testthat::Reporter`) with `start_feature()`/`end_feature()`/`start_step()`/`end_step()` hooks, and `CucumberProgressReporter` prints each step as it runs with its real `Given`/`When`/`Then` keyword. Pass one via the `reporter` argument to `cucumber::test()` or `cucumber::run()`.
+- ✨ Missing step definitions now report a ready-to-paste snippet (with `{int}`/`{string}` placeholders inferred from the step text) instead of just an error.
+- 🐛 Feature file normalisation now preserves the original `Given`/`When`/`Then` keyword (resolving `And`/`But`/`*` to the preceding one) instead of collapsing every step to a generic keyword.
+- 🐛 Doc String content is now dedented relative to its opening delimiter, as the Gherkin specification requires. Previously a Doc String whose `"""` was indented less than the surrounding nesting lost the indentation of its own lines. [#16](https://github.com/jakubsob/cucumber/issues/16)
+
 # cucumber 2.1.1
 
 - 🐛 Fix normalisation of feature files. [#14](https://github.com/jakubsob/cucumber/pull/14)
@@ -15,7 +24,7 @@
 
 # cucumber 2.0.0
 
-See the [migration guide](https://jakubsobolewski.com/cucumber/articles/migration-to-2-0-0.html).
+See the [migration guide](https://jakubsob.github.io/cucumber/articles/migration-to-2-0-0.html).
 
 - ✨ You can now run specifications directly with `cucumber::test()` function.
 

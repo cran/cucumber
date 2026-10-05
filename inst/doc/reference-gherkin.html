@@ -2,17 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Gherkin Reference</title>
 <style>
-code{white-space: pre-wrap;}
+
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -20,12 +24,186 @@ width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
 .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
 
 
-<style type="text/css">body {background-color: #fff;margin: 1em auto;max-width: 700px;overflow: visible;padding-left: 2em;padding-right: 2em;font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size: 14px;line-height: 1.35;}table {margin: 1em auto;border-width: 1px;border-color: #DDDDDD;border-style: outset;border-collapse: collapse;}table th {border-width: 2px;padding: 5px;border-style: inset;}table td {border-width: 1px;border-style: inset;line-height: 18px;padding: 5px 5px;}table, table th, table td {border-left-style: none;border-right-style: none;}table thead, table tr.even {background-color: #f7f7f7;}p {margin: 0.5em 0;}blockquote {background-color: #f6f6f6;padding: 0.25em 0.75em;}hr {border-style: solid;border: none;border-top: 1px solid #777;margin: 28px 0;}dl {margin-left: 0;}dl dd {margin-bottom: 13px;margin-left: 13px;}dl dt {font-weight: bold;}ul {margin-top: 0;}ul li {list-style: circle outside;}ul ul {margin-bottom: 0;}pre, code {background-color: #f7f7f7;border-radius: 3px;color: #333;white-space: pre-wrap; }pre {border-radius: 3px;margin: 5px 0px 10px 0px;padding: 10px;}pre:not([class]) {background-color: #f7f7f7;}code {font-family: Consolas, Monaco, 'Courier New', monospace;font-size: 85%;}p > code, li > code {padding: 2px 0px;}div.figure {text-align: center;}img {background-color: #FFFFFF;padding: 2px;border: 1px solid #DDDDDD;border-radius: 3px;border: 1px solid #CCCCCC;margin: 0 5px;}h1 {margin-top: 0;font-size: 35px;line-height: 40px;}h2 {border-bottom: 4px solid #f7f7f7;padding-top: 10px;padding-bottom: 2px;font-size: 145%;}h3 {border-bottom: 2px solid #f7f7f7;padding-top: 10px;font-size: 120%;}h4 {border-bottom: 1px solid #f7f7f7;margin-left: 8px;font-size: 105%;}h5, h6 {border-bottom: 1px solid #ccc;font-size: 105%;}a {color: #0033dd;text-decoration: none;}a:hover {color: #6666ff; }a:visited {color: #800080; }a:visited:hover {color: #BB00BB; }a[href^="http:"] {text-decoration: underline; }a[href^="https:"] {text-decoration: underline; }</style>
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+</style>
 </head>
 
 <body>
@@ -84,6 +262,13 @@ margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 <ul>
 <li><a href="#doc-strings">Doc Strings</a></li>
 <li><a href="#data-tables">Data Tables</a></li>
+</ul></li>
+<li><a href="#tags">Tags</a>
+<ul>
+<li><a href="#tag-inheritance">Tag inheritance</a></li>
+<li><a href="#running-a-subset-of-scenarios">Running a subset of scenarios</a></li>
+<li><a href="#tag-expressions">Tag expressions</a></li>
+<li><a href="#using-tags-for-documentation">Using tags for documentation</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -322,6 +507,142 @@ Scenario: eating (Example 2)
 <p>Just like <code>Doc Strings</code>, <code>Data Tables</code> will be passed to the step definition as the last argument. See <code>?step</code> for details.</p>
 <h4 id="table-cell-escaping">Table Cell Escaping</h4>
 <p>If you want to use a newline character in a table cell, you can write this as <code>\n</code>. If you need a <code>|</code> as part of the cell, you can escape it as <code>\|</code>.</p>
+<h1 id="tags">Tags</h1>
+<p>Tags are a great way to organise your features and scenarios.</p>
+<p>They can be used for two purposes:</p>
+<ul>
+<li>Running a subset of scenarios</li>
+<li>Restricting hooks to a subset of scenarios</li>
+</ul>
+<p>Consider the following example:</p>
+<pre class="gherkin"><code>@billing
+Feature: Verify billing
+
+  @important
+  Scenario: Missing product description
+    Given hello
+
+  Scenario: Several products
+    Given hello</code></pre>
+<p>A feature or scenario can have as many tags as you like. Separate them with spaces:</p>
+<pre class="gherkin"><code>@billing @bicker @annoy
+Feature: Verify billing</code></pre>
+<p>Tags can be placed above the following Gherkin elements:</p>
+<ul>
+<li><code>Feature</code></li>
+<li><code>Scenario</code></li>
+<li><code>Scenario Outline</code></li>
+<li><code>Examples</code></li>
+</ul>
+<p><strong>Note:</strong> Tags placed above <code>Background</code> or steps (<code>Given</code>, <code>When</code>, <code>Then</code>, <code>And</code>, <code>But</code>, <code>*</code>) will cause a validation error. Place tags only on the elements listed above.</p>
+<p>In <code>Scenario Outline</code>, you can use tags on different sets of examples:</p>
+<pre class="gherkin"><code>Scenario Outline: Steps will run conditionally if tagged
+  Given user is logged in
+  When user clicks &lt;link&gt;
+  Then user will be logged out
+
+  @mobile
+  Examples:
+    | link                  |
+    | logout link on mobile |
+
+  @desktop
+  Examples:
+    | link                   |
+    | logout link on desktop |</code></pre>
+<p>Tags placed in invalid locations will result in an error. For example, this is <strong>invalid</strong> and will throw an error:</p>
+<pre class="gherkin"><code>Feature: Invalid tag usage
+  @invalid-here
+  Background:
+    Given setup step
+
+  Scenario: Test
+    @also-invalid
+    Given a step</code></pre>
+<p><strong>Note:</strong> It is not possible to place tags above <code>Background</code> or steps (<code>Given</code>, <code>When</code>, <code>Then</code>, <code>And</code> and <code>But</code>).</p>
+<h2 id="tag-inheritance">Tag inheritance</h2>
+<p>Tags are inherited by child elements. Tags placed above a <code>Feature</code> will be inherited by <code>Scenario</code>, <code>Scenario Outline</code>, or <code>Examples</code>. Similarly, tags placed above a <code>Scenario Outline</code> will be inherited by <code>Examples</code>.</p>
+<h2 id="running-a-subset-of-scenarios">Running a subset of scenarios</h2>
+<p>You can use the <code>tags</code> parameter in <code>cucumber::test()</code> or <code>cucumber::run()</code> to only run scenarios with particular tags.</p>
+<p>Using tag expressions:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run only scenarios tagged with @smoke</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="at">tags =</span> <span class="st">&quot;@smoke&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run scenarios tagged with both @smoke and @fast</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="at">tags =</span> <span class="st">&quot;@smoke and @fast&quot;</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run scenarios tagged with @wip but not @slow</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="at">tags =</span> <span class="st">&quot;@wip and not @slow&quot;</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Run scenarios tagged with either @gui or @database</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="at">tags =</span> <span class="st">&quot;@gui or @database&quot;</span>)</span></code></pre></div>
+<h2 id="tag-expressions">Tag expressions</h2>
+<p>A tag expression is an infix boolean expression. Below are some examples:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Expression</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>@fast</code></td>
+<td>Scenarios tagged with <span class="citation" data-cites="fast">@fast</span></td>
+</tr>
+<tr class="even">
+<td><code>@wip and not @slow</code></td>
+<td>Scenarios tagged with <span class="citation" data-cites="wip">@wip</span> that aren’t also tagged with <span class="citation" data-cites="slow">@slow</span></td>
+</tr>
+<tr class="odd">
+<td><code>@smoke and @fast</code></td>
+<td>Scenarios tagged with both <span class="citation" data-cites="smoke">@smoke</span> and <span class="citation" data-cites="fast">@fast</span></td>
+</tr>
+<tr class="even">
+<td><code>@gui or @database</code></td>
+<td>Scenarios tagged with either <span class="citation" data-cites="gui">@gui</span> or <span class="citation" data-cites="database">@database</span></td>
+</tr>
+</tbody>
+</table>
+<p>For more advanced tag expressions you can use parentheses for clarity, or to change operator precedence:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cucumber<span class="sc">::</span><span class="fu">test</span>(<span class="st">&quot;tests/acceptance&quot;</span>, <span class="at">tags =</span> <span class="st">&quot;(@smoke or @ui) and (not @slow)&quot;</span>)</span></code></pre></div>
+<h3 id="tag-expression-operators">Tag expression operators</h3>
+<p>Tag expressions support the following operators:</p>
+<ul>
+<li><code>and</code> - logical AND (both conditions must be true)</li>
+<li><code>or</code> - logical OR (at least one condition must be true)</li>
+<li><code>not</code> - logical NOT (negates the condition)</li>
+<li><code>( )</code> - parentheses for grouping and controlling precedence</li>
+</ul>
+<p><strong>Operator precedence:</strong> <code>not</code> has the highest precedence, followed by <code>and</code>, then <code>or</code>. Use parentheses to change the order of evaluation.</p>
+<p>The operators are case-insensitive (<code>and</code>, <code>AND</code>, and <code>And</code> all work the same way).</p>
+<h3 id="tag-names">Tag names</h3>
+<p>Tag names can contain: * Alphanumeric characters (a-z, A-Z, 0-9) * Underscores (<code>_</code>) * Hyphens (<code>-</code>) * Dots (<code>.</code>)</p>
+<p>Tag names are case-sensitive: <code>@Smoke</code> and <code>@smoke</code> are different tags.</p>
+<h2 id="using-tags-for-documentation">Using tags for documentation</h2>
+<p>Your imagination is the only limitation when it comes to using tags for documentation.</p>
+<h3 id="link-to-other-documents">Link to other documents</h3>
+<p>Tags can refer to IDs in external systems such as requirement management tools, issue trackers or test management tools:</p>
+<pre class="gherkin"><code>@BJ-x98.77 @BJ-z12.33
+Feature: Convert transaction</code></pre>
+<p>You can use custom reporting to turn these tags into links pointing to documents in your external tool.</p>
+<h3 id="development-process">Development process</h3>
+<p>Another creative way to use tags is to keep track of where in the development process a certain feature is:</p>
+<pre class="gherkin"><code>@qa_ready
+Feature: Index projects</code></pre>
+<h3 id="other-common-uses">Other common uses</h3>
+<ul>
+<li><code>@smoke</code> - Quick smoke tests that run on every commit</li>
+<li><code>@wip</code> - Work in progress, scenarios that are being developed</li>
+<li><code>@slow</code> - Long-running tests that might be skipped in development</li>
+<li><code>@manual</code> - Tests that require manual verification</li>
+<li><code>@bug</code> - Tests that reproduce a reported bug</li>
+<li><code>@regression</code> - Regression tests for fixed bugs</li>
+</ul>
 
 
 

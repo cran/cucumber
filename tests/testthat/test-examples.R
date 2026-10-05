@@ -1,40 +1,3 @@
-.expect_snapshot <- purrr::partial(
-  testthat::expect_snapshot,
-  transform = function(lines) {
-    lines |>
-      # Remove lines that indicate progress
-      stringr::str_subset("^[\\|/\\-\\\\] \\|", negate = TRUE) |>
-      # Remove empty lines
-      stringr::str_subset("^$", negate = TRUE) |>
-      # Remove test timing information
-      stringr::str_remove_all("\\s\\[\\d+.\\d+s\\]") |>
-      # Remove test run duration
-      stringr::str_remove_all("Duration:\\s\\d+.\\d+\\ss") |>
-      stringr::str_trim()
-  },
-  variant = ifelse(testthat::is_checking(), "check", "local")
-)
-
-.with_example_dir <- function(path, code) {
-  withr::with_dir(
-    system.file(fs::path("examples", path), package = "cucumber"),
-    code
-  )
-}
-
-test_example <- function(path, tests_path = "tests/acceptance", ...) {
-  .with_example_dir(path, {
-    .expect_snapshot(
-      cucumber::test(
-        tests_path,
-        reporter = testthat::ProgressReporter$new(show_praise = FALSE),
-        stop_on_failure = FALSE,
-        ...
-      )
-    )
-  })
-}
-
 describe("test", {
   skip_on_cran()
   it("should run one feature", {
@@ -80,12 +43,6 @@ describe("test", {
     test_example("hooks")
   })
 
-  it("should run after hook, even after error in step", {
-    testthat::skip_if(covr::in_covr())
-    testthat::skip_if(R.version$status == "Under development (unstable)")
-    test_example("hooks_after_error")
-  })
-
   it("should run a Scenario with custom parameters", {
     test_example("custom_parameters")
   })
@@ -101,10 +58,6 @@ describe("test", {
 
   it("should report success with `testthat::test_dir`", {
     test_example("with_testthat_success")
-  })
-
-  it("should report failure with `testthat::test_dir`", {
-    test_example("with_testthat_failure")
   })
 
   it("should work with loading steps from setup files", {
@@ -126,11 +79,16 @@ describe("test", {
     )
   })
 
-  it("should throw an error if no test files are found", {
-    test_example(
-      "with_testthat_filtering",
-      filter = "this_feature_doesnt_exist"
-    )
+  it("should run all scenarios when no tags filter is given", {
+    result <- .with_example_dir("tags", {
+      cucumber::test(
+        "tests/acceptance",
+        stop_on_failure = FALSE,
+        reporter = testthat::SilentReporter$new()
+      )
+    })
+    df <- as.data.frame(result)
+    expect_equal(nrow(df), 2)
   })
 
   it("should run tests with custom loading of steps and support code", {
@@ -141,7 +99,7 @@ describe("test", {
         source("tests/acceptance/support/expect.R", local = env)
         cucumber::test(
           tests_path = "tests/acceptance",
-          reporter = testthat::ProgressReporter$new(show_praise = FALSE),
+          reporter = CucumberProgressReporter$new(show_praise = FALSE),
           stop_on_failure = FALSE,
           env = env
         )

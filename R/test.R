@@ -17,31 +17,50 @@
 #'
 #' @param filter If not NULL, only features with file names matching this regular expression
 #'   will be executed. Matching is performed on the file name after it's stripped of ".feature".
+#' @param tags If not NULL, filter scenarios by tag expression string
+#'   (e.g., `"@smoke and not @slow"`, `"@gui or @database"`).
+#'   Tag expressions support `and`, `or`, `not` operators and parentheses for grouping.
+#' @param reporter Optional reporter instance (testthat::Reporter or cucumber::CucumberReporter).
+#'   If NULL, will use reporter from package options if available.
 #' @param ... Additional arguments passed to `grepl()`.
 #' @return NULL, invisibly.
 #'   To get result and a report, use `cucumber::test()`, or inspect the result of `testthat` function call.
 #'
-#' @importFrom purrr map walk
+#' @importFrom rlang abort
 #' @export
 #' @md
 run <- function(
   path = ".",
   filter = NULL,
+  tags = NULL,
+  reporter = get_reporter(),
   ...
 ) {
   withr::defer(cleanup(), testthat::teardown_env())
+
   features <- path |>
     find_features() |>
     filter_features(filter, ...)
 
   if (length(features) == 0) {
-    abort("No feature files found")
+    abort(
+      "No feature files found.",
+      body = c(
+        i = "Add `.feature` files describing your scenarios."
+      ),
+      trace = empty_trace()
+    )
   }
 
-  features |>
-    map(readLines) |>
-    map(validate_feature) |>
-    walk(execute)
+  for (feature_path in features) {
+    feature <- validate_feature(readLines(feature_path))
+    execute(
+      feature,
+      feature_file = feature_path,
+      tags = tags,
+      reporter = reporter
+    )
+  }
 
   invisible(NULL)
 }
@@ -72,15 +91,15 @@ cleanup <- function() {
 }
 
 #' @importFrom withr defer
-test_cucumber_code <- function(path, filter, ...) {
-  sprintf(
-    'cucumber::run(%s, %s)',
+test_cucumber_code <- function(path, filter, tags = NULL, ...) {
+  args <- c(
     shQuote(path),
-    if (is.null(filter)) {
-      "NULL"
-    } else {
-      shQuote(filter)
-    }
+    sprintf("filter = %s", if (is.null(filter)) "NULL" else shQuote(filter)),
+    if (!is.null(tags)) sprintf("tags = %s", deparse(tags))
+  )
+  sprintf(
+    "cucumber::run(%s, reporter = getOption('.cucumber_reporter'))",
+    paste(args, collapse = ", ")
   )
 }
 
@@ -116,11 +135,20 @@ test_cucumber_code <- function(path, filter, ...) {
 #' @inheritParams testthat::test_dir
 #' @param filter If not NULL, only features with file names matching this regular expression
 #'   will be executed. Matching is performed on the file name after it's stripped of ".feature".
+#' @param tags If not NULL, filter scenarios by tag expression string
+#'   (e.g., `"@smoke and not @slow"`, `"@gui or @database"`).
+#'   Tag expressions support `and`, `or`, `not` operators and parentheses for grouping.
 #'
 #' @examples
 #' \dontrun{
 #' cucumber::test("tests/acceptance")
 #' cucumber::test("tests/acceptance", filter = "addition|multiplication")
+#'
+#' # Tag expressions
+#' cucumber::test("tests/acceptance", tags = "@smoke")
+#' cucumber::test("tests/acceptance", tags = "@smoke and @fast")
+#' cucumber::test("tests/acceptance", tags = "@wip and not @slow")
+#' cucumber::test("tests/acceptance", tags = "(@smoke or @ui) and (not @slow)")
 #' }
 #'
 #' @importFrom testthat test_dir
@@ -133,17 +161,27 @@ test_cucumber_code <- function(path, filter, ...) {
 test <- function(
   path = "tests/acceptance",
   filter = NULL,
-  reporter = NULL,
+  tags = NULL,
+  reporter = get_reporter(),
   env = NULL,
   load_helpers = TRUE,
   stop_on_failure = TRUE,
   stop_on_warning = FALSE,
   ...
 ) {
+  if (!is.null(reporter)) {
+    withr::local_options(.cucumber_reporter = reporter)
+  }
+
   file <- fs::path(path, "test-__cucumber__.R")
   with_file(file, {
     writeLines(
-      test_cucumber_code(".", filter = filter, ...),
+      test_cucumber_code(
+        ".",
+        filter = filter,
+        tags = tags,
+        ...
+      ),
       con = file
     )
     result <- test_dir(
